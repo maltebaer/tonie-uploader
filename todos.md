@@ -50,4 +50,5 @@ APP_PASSWORD=yourappsecret
 - [x] Create basic project structure
 - [x] Create authentication flow
 - [x] Build households listing
-- [ ] Implement upload functionality
+- [x] Implement file upload functionality
+- [ ] Implement URL upload functionality

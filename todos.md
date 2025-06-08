@@ -47,8 +47,7 @@ APP_PASSWORD=yourappsecret
 7. Styling and polish
 
 ## Next Steps
-- [ ] Create basic project structure
-- [ ] Create the auth function first
-- [ ] Test authentication flow
+- [x] Create basic project structure
+- [ ] Create authentication flow
 - [ ] Build households listing
 - [ ] Implement upload functionality

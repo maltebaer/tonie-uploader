@@ -48,6 +48,6 @@ APP_PASSWORD=yourappsecret
 
 ## Next Steps
 - [x] Create basic project structure
-- [ ] Create authentication flow
-- [ ] Build households listing
+- [x] Create authentication flow
+- [x] Build households listing
 - [ ] Implement upload functionality

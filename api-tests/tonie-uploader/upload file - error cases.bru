@@ -1,0 +1,25 @@
+meta {
+  name: upload file - error cases
+  type: http
+  seq: 5
+}
+
+post {
+  url: {{baseUrl}}/api/upload-file
+  body: multipartForm
+  auth: none
+}
+
+body:multipart-form {
+  appPassword: wrong-password
+  tonieId: {{householdId}}/{{yetiTonieId}}
+  title: Test Upload - Should Fail
+  file: @file(./test-audio.wav)
+}
+
+tests {
+  test("should reject invalid app password", function() {
+    expect(res.getStatus()).to.equal(401);
+    expect(res.getBody()).to.have.property('error', 'Invalid app password');
+  });
+}

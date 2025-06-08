@@ -1,4 +1,4 @@
-// api/upload-file.js
+// api/upload-from-device.js
 import { authenticateWithTonie, verifyAppPassword, setCorsHeaders, makeTonieApiRequest } from '../utils/auth.js';
 
 // Supported audio formats based on Tonie API documentation

@@ -8,12 +8,12 @@
 ├── script.js           # Frontend JavaScript
 ├── vercel.json         # Vercel configuration
 ├── package.json        # Dependencies
-├── .env.local          # Environment variables (local dev)
+├── .env.local                  # Environment variables (local dev)
 └── api/
-    ├── auth.js         # Authenticate with Tonie API
-    ├── households.js   # Get households and tonies
-    ├── upload-file.js  # Handle file uploads
-    └── upload-url.js   # Handle URL downloads & upload
+    ├── auth.js                 # Authenticate with Tonie API
+    ├── households.js           # Get households and tonies
+    ├── upload-from-device.js   # Handle file uploads from device
+    └── upload-from-youtube.js  # Handle YoutTube URL downloads & upload
 ```
 
 ## Environment Variables (Vercel Dashboard)
@@ -34,8 +34,8 @@ APP_PASSWORD=yourappsecret
 ## API Endpoints
 - `POST /api/auth` - Verify app password
 - `GET /api/households` - Get households and creative tonies
-- `POST /api/upload-file` - Upload file to selected tonie
-- `POST /api/upload-url` - Download URL and upload to tonie
+- `POST /api/upload-from-device` - Upload file to selected tonie
+- `POST /api/upload-from-youtube` - Download URL from YouTube and upload to tonie
 
 ## Implementation Order
 1. Project structure
@@ -51,4 +51,4 @@ APP_PASSWORD=yourappsecret
 - [x] Create authentication flow
 - [x] Build households listing
 - [x] Implement file upload functionality
-- [ ] Implement URL upload functionality
+- [ ] Implement YouTube URL upload functionality

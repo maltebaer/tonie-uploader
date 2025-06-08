@@ -1,11 +1,11 @@
 meta {
-  name: upload file
+  name: upload - from device
   type: http
-  seq: 4
+  seq: 5
 }
 
 post {
-  url: {{baseUrl}}/api/upload-file
+  url: {{baseUrl}}/api/upload-from-device
   body: multipartForm
   auth: none
 }
@@ -24,7 +24,7 @@ tests {
     expect(res.getBody()).to.have.property('fileId');
     expect(res.getBody()).to.have.property('message');
   });
-
+  
   test("should contain upload details", function() {
     const body = res.getBody();
     expect(body.message).to.include('Test Upload');

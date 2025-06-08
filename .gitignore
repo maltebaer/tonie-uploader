@@ -1,0 +1,13 @@
+# Node
+node_modules/
+
+# macOS
+.DS_Store
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Vercel
+.vercel/

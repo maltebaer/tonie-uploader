@@ -1,0 +1,17 @@
+meta {
+  name: households
+  type: http
+  seq: 5
+}
+
+post {
+  url: {{baseUrl}}/api/households
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "appPassword": "{{appPassword}}"
+  }
+}

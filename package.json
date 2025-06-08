@@ -4,10 +4,6 @@
     "description": "Simple web app to upload music to Tonies",
     "main": "script.js",
     "type": "module",
-    "scripts": {
-        "start": "vercel dev",
-        "build": "echo \"No specific build command configured yet.\""
-    },
     "keywords": [
         "static",
         "native",
@@ -17,6 +13,6 @@
     "author": "maltebaer",
     "license": "ISC",
     "devDependencies": {
-        "vercel": "^42.3.0"
+        "@vercel/node": "^5.2.1"
     }
 }

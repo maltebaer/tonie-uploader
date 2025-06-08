@@ -71,59 +71,54 @@ export default async function handler(req, res) {
 
 async function authenticateWithTonie() {
     try {
-        const loginUrl = 'https://api.tonie.cloud/v2/user/login';
+        // Use OpenID Connect endpoint for authentication
+        const tokenUrl = 'https://login.tonies.com/auth/realms/tonies/protocol/openid-connect/token';
 
-        const response = await fetch(loginUrl, {
+        const response = await fetch(tokenUrl, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json',
+                'Content-Type': 'application/x-www-form-urlencoded',
                 'User-Agent': 'tonie-uploader/1.0',
             },
-            body: JSON.stringify({
-                email: process.env.TONIE_EMAIL,
-                password: process.env.TONIE_PASSWORD
+            body: new URLSearchParams({
+                'grant_type': 'password',
+                'client_id': 'my-tonies',
+                'scope': 'openid',
+                'username': process.env.TONIE_EMAIL,
+                'password': process.env.TONIE_PASSWORD
             })
         });
 
-        const responseData = await response.json();
-
         if (!response.ok) {
+            const errorText = await response.text();
 
             return {
                 success: false,
-                error: `HTTP ${response.status}: ${responseData.message || 'Authentication failed'}`
+                error: `HTTP ${response.status}: ${errorText || 'Authentication failed'}`
             };
         }
 
-        // Extract session cookies or token from response
-        const cookies = response.headers.get('set-cookie');
-        let sessionToken = null;
+        const responseData = await response.json();
 
-        if (cookies) {
-            // Parse session cookie if present
-            const sessionMatch = cookies.match(/session[^=]*=([^;]+)/i);
-            if (sessionMatch) {
-                sessionToken = sessionMatch[1];
-            }
-        }
+        // The access token is what we need for subsequent API calls
+        const accessToken = responseData.access_token;
 
-        // Some APIs return token in response body
-        if (!sessionToken && responseData.token) {
-            sessionToken = responseData.token;
-        }
+        if (!accessToken) {
 
-        // Some APIs return session info in response body
-        if (!sessionToken && responseData.session) {
-            sessionToken = responseData.session;
+            return {
+                success: false,
+                error: 'No access token received from authentication'
+            };
         }
 
         return {
             success: true,
-            sessionToken: sessionToken,
-            userData: responseData,
-            cookies: cookies
+            sessionToken: accessToken,
+            tokenType: responseData.token_type || 'Bearer',
+            expiresIn: responseData.expires_in,
+            refreshToken: responseData.refresh_token,
+            userData: responseData
         };
-
     } catch (error) {
 
         return {

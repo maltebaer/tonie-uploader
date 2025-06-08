@@ -13,7 +13,7 @@
     ├── auth.js                 # Authenticate with Tonie API
     ├── households.js           # Get households and tonies
     ├── upload-from-device.js   # Handle file uploads from device
-    └── upload-from-youtube.js  # Handle YoutTube URL downloads & upload
+    └── upload-from-youtube.js  # Handle YouTube URL downloads & upload
 ```
 
 ## Environment Variables (Vercel Dashboard)
@@ -35,7 +35,7 @@ APP_PASSWORD=yourappsecret
 - `POST /api/auth` - Verify app password
 - `GET /api/households` - Get households and creative tonies
 - `POST /api/upload-from-device` - Upload file to selected tonie
-- `POST /api/upload-from-youtube` - Download URL from YouTube and upload to tonie
+- `POST /api/upload-from-youtube` - Download from YouTube and upload to tonie
 
 ## Implementation Order
 1. Project structure
@@ -51,4 +51,4 @@ APP_PASSWORD=yourappsecret
 - [x] Create authentication flow
 - [x] Build households listing
 - [x] Implement file upload functionality
-- [ ] Implement YouTube URL upload functionality
+- [x] Implement YouTube URL upload functionality

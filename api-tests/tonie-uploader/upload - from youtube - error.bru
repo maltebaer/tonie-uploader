@@ -1,0 +1,27 @@
+meta {
+  name: upload - from youtube - error
+  type: http
+  seq: 10
+}
+
+post {
+  url: {{baseUrl}}/api/upload-from-youtube
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "appPassword": "wrong-password",
+    "tonieId": "{{householdId}}/{{yetiTonieId}}",
+    "title": "Test Upload - Should Fail",
+    "url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+  }
+}
+
+tests {
+  test("should fail with invalid password", function() {
+    expect(res.getStatus()).to.equal(401);
+    expect(res.getBody()).to.have.property('error', 'Invalid app password');
+  });
+}

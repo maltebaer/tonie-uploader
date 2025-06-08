@@ -1,0 +1,53 @@
+meta {
+  name: upload - from youtube
+  type: http
+  seq: 9
+}
+
+post {
+  url: {{baseUrl}}/api/upload-from-youtube
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "appPassword": "{{appPassword}}",
+    "tonieId": "{{householdId}}/{{yetiTonieId}}",
+    "title": "Test YouTube Upload - {{$timestamp}}",
+    "url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+  }
+}
+
+tests {
+  test("should upload YouTube video successfully", function() {
+    expect(res.getStatus()).to.equal(200);
+    expect(res.getBody()).to.have.property('success', true);
+    expect(res.getBody()).to.have.property('fileId');
+    expect(res.getBody()).to.have.property('message');
+  });
+
+  test("should contain video info", function() {
+    const body = res.getBody();
+    expect(body).to.have.property('videoInfo');
+    expect(body.videoInfo).to.have.property('title');
+    expect(body.videoInfo).to.have.property('author');
+    expect(body.videoInfo).to.have.property('duration');
+    expect(body.videoInfo).to.have.property('videoId');
+    expect(body.videoInfo.videoId).to.equal('dQw4w9WgXcQ');
+  });
+
+  test("should contain upload details", function() {
+    const body = res.getBody();
+    expect(body).to.have.property('filename');
+    expect(body).to.have.property('fileSize');
+    expect(body).to.have.property('chapterData');
+    expect(body).to.have.property('timestamp');
+    expect(body.filename).to.include('(dQw4w9WgXcQ).m4a');
+  });
+
+  test("should have reasonable file size (under 512MB)", function() {
+    const body = res.getBody();
+    expect(body.fileSize).to.be.lessThan(536870912); // 512MB in bytes
+  });
+}

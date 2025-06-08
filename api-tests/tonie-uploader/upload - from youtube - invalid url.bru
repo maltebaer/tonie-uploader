@@ -1,0 +1,28 @@
+meta {
+  name: upload - from youtube - invalid url
+  type: http
+  seq: 11
+}
+
+post {
+  url: {{baseUrl}}/api/upload-from-youtube
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "appPassword": "{{appPassword}}",
+    "tonieId": "{{householdId}}/{{yetiTonieId}}",
+    "title": "Test Upload - Invalid URL",
+    "url": "https://www.not-youtube.com/watch?v=invalid"
+  }
+}
+
+tests {
+  test("should fail with invalid URL", function() {
+    expect(res.getStatus()).to.equal(400);
+    expect(res.getBody()).to.have.property('error', 'Invalid YouTube URL');
+    expect(res.getBody()).to.have.property('details');
+  });
+}

@@ -14,5 +14,8 @@
     "license": "ISC",
     "devDependencies": {
         "@vercel/node": "^5.2.1"
+    },
+    "dependencies": {
+        "@distube/ytdl-core": "^4.16.11"
     }
 }
